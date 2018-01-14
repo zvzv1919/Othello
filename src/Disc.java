@@ -12,6 +12,7 @@ public class Disc {
     public Disc(char x, int y) {
         this.x = x;
         this.y = y;
+        color = Color.none;
     }
     public Color getColor() {
         return color;

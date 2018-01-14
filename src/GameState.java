@@ -26,4 +26,7 @@ public class GameState {
         whiteDiscs.setColor(Color.white);
         blackDiscs.setColor(Color.black);
     }
+    public GroupofDisc getAllDiscs() {
+        return allDiscs;
+    }
 }

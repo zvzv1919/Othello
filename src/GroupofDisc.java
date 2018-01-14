@@ -45,4 +45,7 @@ public class GroupofDisc {
         return null;
     }
 
+    public ArrayList<Disc> getList() {
+        return list;
+    }
 }
