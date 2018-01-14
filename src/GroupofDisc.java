@@ -10,7 +10,7 @@ import java.util.Iterator;
 //a set of disc that can be flipped together, for convenient purpose;
 //can also be searched.
 //setColor: set the color of the whole group of discs to what is passed in(calls 'disc.setColor(color)'.
-
+//getDisc: returns the disc of the specified coordinates, null if there !exists such a disc in the groupofDisc
 
 public class GroupofDisc {
     private ArrayList<Disc> list;
@@ -35,4 +35,14 @@ public class GroupofDisc {
             d.setColor(color);
         }
     }
+
+    public Disc getDisc(char x, int y){
+        for (Disc disc: list) {
+            if(disc.getX() == x && disc.getY() == y) {
+                return disc;
+            }
+        }
+        return null;
+    }
+
 }
