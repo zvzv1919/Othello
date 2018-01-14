@@ -36,7 +36,6 @@ public class Board extends JPanel{
         //Draw the discs
         for (Disc disc: gameState.getAllDiscs().getList()) {
             //assert (disc!= null);
-            System.out.println(disc.getX());
             switch (disc.getColor()){
                 case none:{
                     break;
@@ -60,4 +59,20 @@ public class Board extends JPanel{
 
     }
 
+    public void clicked(int x, int y){
+        char newX = (char)(x / 30 + 'a' - 1);
+        int newY = y / 30;
+
+        //inspect newX and newY
+        //TODO
+
+
+        Disc newDisc = gameState.getAllDiscs().getDisc(newX, newY);
+        newDisc.setColor(gameState.getMovePlayer());
+
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
 }

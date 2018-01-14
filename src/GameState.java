@@ -25,8 +25,17 @@ public class GameState {
         blackDiscs.addDisc(allDiscs.getDisc('e',4));
         whiteDiscs.setColor(Color.white);
         blackDiscs.setColor(Color.black);
+        movePlayer = Color.black;
     }
     public GroupofDisc getAllDiscs() {
         return allDiscs;
+    }
+
+    public Color getMovePlayer() {
+        return movePlayer;
+    }
+
+    public void setMovePlayer(Color movePlayer) {
+        this.movePlayer = movePlayer;
     }
 }
