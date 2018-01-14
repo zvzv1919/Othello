@@ -2,10 +2,10 @@
  * Created by zvzv1919 on 2018/1/14.
  */
 public class GameState {
-    private Color movePlayer; //the player who should take the current turn to move
     private GroupofDisc whiteDiscs;
     private GroupofDisc blackDiscs;
     private final GroupofDisc allDiscs;
+    private Color movePlayer; //the player who should take the current turn to move
 
     public GameState(){
         //Create discs from a1 to h8 and add them to 'allDiscs'
@@ -26,5 +26,4 @@ public class GameState {
         whiteDiscs.setColor(Color.white);
         blackDiscs.setColor(Color.black);
     }
-
 }
