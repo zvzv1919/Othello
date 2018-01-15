@@ -1,5 +1,6 @@
 /**
  * Created by zvzv1919 on 2018/1/14.
+ * equals: True if allDiscs and movePlayer are the same.
  */
 public class GameState {
     private GroupofDisc whiteDiscs;
@@ -37,5 +38,16 @@ public class GameState {
 
     public void setMovePlayer(Color movePlayer) {
         this.movePlayer = movePlayer;
+    }
+
+    public boolean equals(Object o){
+        if(!(o instanceof GameState)){
+            return super.equals(o);
+        }
+        GameState operand = (GameState) o;
+        if(this.equals(operand.allDiscs) && this.movePlayer == operand.movePlayer){
+            return true;
+        }
+        return false;
     }
 }

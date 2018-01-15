@@ -3,14 +3,20 @@ import java.util.Iterator;
 
 /**
  * Created by zvzv1919 on 2018/1/10.
- *
+ * a set of disc that can be flipped together, for convenient purpose;
+ * can also be searched.
+ * setColor: set the color of the whole group of discs to what is passed in(calls 'disc.setColor(color)'.
+ * getDisc: returns the disc of the specified coordinates, null if there !exists such a disc in the groupofDisc
+ * equals: returns true only if the size of groups are the same, and discs of the same position from two groups have
+ *      the same color. Attention: works properlly only when all discs have different positions
+ * TODO:Sort and optimize equals.
  */
 
 
-//a set of disc that can be flipped together, for convenient purpose;
-//can also be searched.
-//setColor: set the color of the whole group of discs to what is passed in(calls 'disc.setColor(color)'.
-//getDisc: returns the disc of the specified coordinates, null if there !exists such a disc in the groupofDisc
+//
+//
+//
+//
 
 public class GroupofDisc {
     private ArrayList<Disc> list;
@@ -47,5 +53,22 @@ public class GroupofDisc {
 
     public ArrayList<Disc> getList() {
         return list;
+    }
+    public boolean equals(Object o){
+        Disc e;
+        if(!(o instanceof GroupofDisc)){
+            return super.equals(o);
+        }
+        GroupofDisc operand = (GroupofDisc) o;
+        if(operand.list.size() != list.size()){
+            return false;
+        }
+        for (Disc d: list) {
+            e = operand.getDisc(d.getX(),d.getY());
+            if(e == null || e.getColor() != d.getColor()){
+                return false;
+            }
+        }
+        return true;
     }
 }

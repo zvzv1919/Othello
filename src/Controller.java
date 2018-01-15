@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 /**
  * Created by zvzv1919 on 2018/1/14.
+ *
  */
 public class Controller implements Runnable{
     JFrame frame;
@@ -17,6 +18,7 @@ public class Controller implements Runnable{
         frame = new JFrame();
         whole = new JPanel();
         board = new Board(new GameState());
+        board.getAJudge();
         buttonPane = new JPanel();
     }
     public void run(){
@@ -56,10 +58,6 @@ public class Controller implements Runnable{
     private class drop implements MouseListener{
         @Override
         public void mouseClicked(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            board.clicked(x,y);
-            board.repaint();
         }
 
         @Override
@@ -69,7 +67,10 @@ public class Controller implements Runnable{
 
         @Override
         public void mouseReleased(MouseEvent e) {
-
+            int x = e.getX();
+            int y = e.getY();
+            board.clicked(x,y);
+            board.repaint();
         }
 
         @Override

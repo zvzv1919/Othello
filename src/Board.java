@@ -4,11 +4,14 @@ import java.awt.*;
 
 /**
  * Created by zvzv1919 on 2018/1/13.
- *
+ * Paints the gameboard UI
+ * Processes the mouse click input
+ * clicked: Called by the controller to suggest the position of the next move of player
  */
 public class Board extends JPanel{
     private GameState gameState;
     private final int DEFAULT_GRID_SIZE = 30;
+    Judge judge;
 
     public Board(GameState gameState) {
         this.gameState = gameState;
@@ -63,16 +66,18 @@ public class Board extends JPanel{
         char newX = (char)(x / 30 + 'a' - 1);
         int newY = y / 30;
 
-        //inspect newX and newY
-        //TODO
-
-
-        Disc newDisc = gameState.getAllDiscs().getDisc(newX, newY);
-        newDisc.setColor(gameState.getMovePlayer());
+        if(newX >= 'a' && newX <= 'h' && newY >= 1 && newY <= 8) {
+            Disc newDisc = gameState.getAllDiscs().getDisc(newX, newY);
+            //newDisc.setColor(gameState.getMovePlayer());
+            judge.processNextMove(newDisc);
+        }
 
     }
 
     public GameState getGameState() {
         return gameState;
+    }
+    public void getAJudge(){
+        judge = new Judge(gameState);
     }
 }
