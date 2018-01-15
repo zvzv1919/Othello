@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class Board extends JPanel{
     private GameState gameState;
-    private final int DEFAULT_GRID_SIZE = 30;
+    private final int DEFAULT_GRID_SIZE = 50;
     Judge judge;
 
     public Board(GameState gameState) {
@@ -63,8 +63,8 @@ public class Board extends JPanel{
     }
 
     public void clicked(int x, int y){
-        char newX = (char)(x / 30 + 'a' - 1);
-        int newY = y / 30;
+        char newX = (char)(x / DEFAULT_GRID_SIZE + 'a' - 1);
+        int newY = y / DEFAULT_GRID_SIZE;
 
         if(newX >= 'a' && newX <= 'h' && newY >= 1 && newY <= 8) {
             Disc newDisc = gameState.getAllDiscs().getDisc(newX, newY);
@@ -79,5 +79,7 @@ public class Board extends JPanel{
     }
     public void getAJudge(){
         judge = new Judge(gameState);
+        judge.setBoard(this);
+        judge.setDroppables(judge.computeDroppablePoints(Color.black));
     }
 }

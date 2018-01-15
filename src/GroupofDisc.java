@@ -71,4 +71,12 @@ public class GroupofDisc {
         }
         return true;
     }
+    public void absorb(GroupofDisc groupofDisc){
+        if(groupofDisc == null){
+            return;
+        }
+        for (Disc disc: groupofDisc.getList()) {
+            list.add(disc);
+        }
+    }
 }
