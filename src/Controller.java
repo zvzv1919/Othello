@@ -13,20 +13,21 @@ public class Controller implements Runnable{
     Board board;
     JPanel buttonPane;
     JPanel whole;
+    Game game;
+    JButton whiteButton;
 
     public Controller(){
         frame = new JFrame();
         whole = new JPanel();
         board = new Board(new GameState());
-        board.getAJudge();
         buttonPane = new JPanel();
     }
     public void run(){
         JButton blackButton = new JButton("black");
-        JButton whiteButton = new JButton("white");
+        whiteButton = new JButton("white");
         JButton restartButton = new JButton("restart");
-        blackButton.addActionListener(new ColorChanger(Color.black));
-        whiteButton.addActionListener(new ColorChanger(Color.white));
+        blackButton.addActionListener(new ColorChanger(Color.black, this));
+        //whiteButton.addActionListener(new ColorChanger(Color.white));
 
         buttonPane.add(blackButton);
         buttonPane.add(whiteButton);
@@ -34,53 +35,50 @@ public class Controller implements Runnable{
         whole.add(buttonPane);
         whole.add(board);
 
-        board.addMouseListener(new drop());
 
         frame.add(whole);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+        game = new Game(board);
+        game.run();
+
         frame.setVisible(true);
     }
 
     private class ColorChanger implements ActionListener{
+        Controller controller;
         Color color;
+        int x = 0;
 
+        ColorChanger(Color color, Controller controller){
+            this.color = color;
+            this.controller = controller;
+        }
         ColorChanger(Color color){
             this.color = color;
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            board.getGameState().setMovePlayer(color);
+            if(color == Color.white) {
+                System.out.println("haha");
+            }
+            if(color == Color.black){
+                if(x++ % 2 == 0) {
+                    //controller.whiteButton.addActionListener(new ColorChanger(Color.white));
+                    /*controller.buttonPane.remove(whiteButton);
+                    buttonPane.repaint();
+                    buttonPane.updateUI();*/
+                }
+                else{
+                    /*controller.buttonPane.add(whiteButton);
+                    buttonPane.repaint();
+                    buttonPane.updateUI();*/
+                }
+            }
         }
     }
 
-    private class drop implements MouseListener{
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        }
 
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-            board.clicked(x,y);
-            board.repaint();
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    }
 }

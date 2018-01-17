@@ -10,8 +10,10 @@ import java.awt.*;
  */
 public class Board extends JPanel{
     private GameState gameState;
+    private Judge judge;
+
     private final int DEFAULT_GRID_SIZE = 50;
-    Judge judge;
+
 
     public Board(GameState gameState) {
         this.gameState = gameState;
