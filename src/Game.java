@@ -18,6 +18,7 @@ public class Game implements Runnable {
         board.addMouseListener(new Drop());
 
         mainGame = board.getGameState();
+
     }
 
     class Drop implements MouseListener {
