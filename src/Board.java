@@ -65,7 +65,6 @@ public class Board extends JPanel{
     }
 
     public void clicked(int x, int y) {
-        char zx;
         char newX = (char)(x / DEFAULT_GRID_SIZE + 'a' - 1);
         int newY = y / DEFAULT_GRID_SIZE;
 
