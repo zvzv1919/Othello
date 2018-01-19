@@ -149,7 +149,7 @@ public class Judge {
             y += directionY;
             Disc disc = gameState.getAllDiscs().getDisc(x,y);
             groupofDisc.getList().add(disc);
-            System.out.println(x + " " + y);
+            //System.out.println(x + " " + y); //For testing purposes
         }while (x != endX || y != endY);
 
         return groupofDisc;

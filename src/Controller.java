@@ -19,7 +19,6 @@ public class Controller implements Runnable{
     public Controller(){
         frame = new JFrame();
         whole = new JPanel();
-        board = new Board(new GameState());
         buttonPane = new JPanel();
     }
     public void run(){
@@ -28,19 +27,34 @@ public class Controller implements Runnable{
         JButton restartButton = new JButton("restart");
         blackButton.addActionListener(new ColorChanger(Color.black, this));
         //whiteButton.addActionListener(new ColorChanger(Color.white));
+        restartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                whole.remove(board);
+                board = new Board(new GameState());
+                game = new Game(board);
+                whole.add(board);
+                frame.pack();     //Fixes the issue when re-selecting the board size.
+                whole.updateUI();
+                game.run();
+            }
+        });
 
         buttonPane.add(blackButton);
         buttonPane.add(whiteButton);
         buttonPane.add(restartButton);
         whole.add(buttonPane);
-        whole.add(board);
 
+        board = new Board(new GameState());
+        whole.add(board);
 
         frame.add(whole);
         frame.pack();
+        frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
+        whole.updateUI();
         game = new Game(board);
         game.run();
 
@@ -79,6 +93,4 @@ public class Controller implements Runnable{
             }
         }
     }
-
-
 }

@@ -7,18 +7,22 @@ import java.awt.event.MouseListener;
 public class Game implements Runnable {
     Board board;
     GameState mainGame;
+    boolean on; //Used to turn off the thread
 
     public Game(Board board){
         this.board = board;
+        this.on = true;
     }
     @Override
     public void run() {
-
         board.getAJudge();
         board.addMouseListener(new Drop());
-
         mainGame = board.getGameState();
+        return;
+    }
 
+    public void stop(){
+        this.on = false;
     }
 
     class Drop implements MouseListener {
