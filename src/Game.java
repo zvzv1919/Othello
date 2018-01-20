@@ -29,18 +29,20 @@ public class Game implements Runnable {
 
     public void undo(){
         if(!history.empty()) {
-            mainGame = history.pop();
+            mainGame.changeInto(history.pop());
+            board.repaint();
         }
     }
 
     public void record(){
-        history.push(mainGame);
+        history.push(GameState.copy(mainGame));
     }
 
     public void getAJudge(){
         judge = new Judge(mainGame);
         judge.setBoard(board);
-        judge.setDroppables(judge.computeDroppablePoints(Color.black));
+        mainGame.setDroppables(judge.computeDroppablePoints(Color.black));
+        judge.setGame(this);
     }
 
     class Drop implements MouseListener {

@@ -12,8 +12,8 @@ import javax.swing.*;
  */
 public class Judge {
     private GameState gameState;
-    private GroupofDisc droppables;
     private Board board;
+    private Game game;
 
     public Judge(GameState gameState){
         this.gameState = gameState;
@@ -58,14 +58,16 @@ public class Judge {
         }
     }
 
-    public synchronized void processNextMove(Disc disc){
-        if(droppables.getDisc(disc.getX(), disc.getY()) == null){
+    public synchronized void processNextMove(Disc disc){//Decide what to do if a new disc 'disc' is dropped on the current gamestate
+        if(gameState.getDroppables().getDisc(disc.getX(), disc.getY()) == null){
             return;
         }
 
+        game.record();
         disc.setColor(gameState.getMovePlayer());
         GroupofDisc flippedDiscs = flippedDiscs(disc);
         flippedDiscs.setColor(gameState.getMovePlayer());
+        gameState.updateColorSets();
         board.repaint();
 
         Color newPlayer = findNextPlayer();
@@ -75,14 +77,25 @@ public class Judge {
         }
         else {
             gameState.setMovePlayer(newPlayer);
-            droppables = computeDroppablePoints(newPlayer);
+            gameState.setDroppables(computeDroppablePoints(newPlayer));
         }
     }
     public void endGame(){
         System.out.println("Gameover");
     }
 
-    public GroupofDisc flippedDiscs(Disc disc) {
+
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+
+    private GroupofDisc flippedDiscs(Disc disc) {
         GroupofDisc flippedDiscs = new GroupofDisc();
         for(char x = (char)(disc.getX() - 1); x <= (char)(disc.getX() + 1); x++){
             if(x < 'a' || x > 'h'){
@@ -108,10 +121,6 @@ public class Judge {
             return null;
         }
         return flippedDiscs;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
     }
     private GroupofDisc checkDirection(Disc central, Disc intact){
         int directionX = intact.getX() - central.getX();
@@ -154,8 +163,5 @@ public class Judge {
         }while (x != endX || y != endY);
 
         return groupofDisc;
-    }
-    public void setDroppables(GroupofDisc droppables) {
-        this.droppables = droppables;
     }
 }

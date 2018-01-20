@@ -9,6 +9,7 @@ import java.util.Iterator;
  * getDisc: returns the disc of the specified coordinates, null if there !exists such a disc in the groupofDisc
  * equals: returns true only if the size of groups are the same, and discs of the same position from two groups have
  *      the same color. Attention: works properlly only when all discs have different positions
+ * copy: copies the list and create a new GroupofDisc according to the list.
  * TODO:Sort and optimize equals.
  */
 
@@ -78,5 +79,14 @@ public class GroupofDisc {
         for (Disc disc: groupofDisc.getList()) {
             list.add(disc);
         }
+    }
+    public static GroupofDisc copy(GroupofDisc groupofDisc){
+        GroupofDisc newGroup = new GroupofDisc();
+        for (Disc disc: groupofDisc.list) {
+            Disc newDisc = new Disc(disc.getX(), disc.getY());
+            newDisc.setColor(disc.getColor());
+            newGroup.list.add(newDisc);
+        }
+        return newGroup;
     }
 }

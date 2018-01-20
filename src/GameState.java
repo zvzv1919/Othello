@@ -1,12 +1,17 @@
 /**
  * Created by zvzv1919 on 2018/1/14.
  * equals: True if allDiscs and movePlayer are the same.
+ * copy: copies allDiscs, whiteDiscs, blackDiscs and droppables.
+ * updateColorSets: update 'whiteDiscs' and 'blackDiscs'.
  */
 public class GameState {
     private GroupofDisc whiteDiscs;
     private GroupofDisc blackDiscs;
-    private final GroupofDisc allDiscs;
+    private GroupofDisc droppables;
+    private GroupofDisc allDiscs;
     private Color movePlayer; //the player who should take the current turn to move
+
+    private static final int BLANK_GAMESTATE = 0;
 
     public GameState(){
         //Create discs from a1 to h8 and add them to 'allDiscs'
@@ -28,6 +33,16 @@ public class GameState {
         blackDiscs.setColor(Color.black);
         movePlayer = Color.black;
     }
+
+    public GameState(int option){
+        allDiscs = new GroupofDisc();
+        whiteDiscs = new GroupofDisc();
+        droppables = new GroupofDisc();
+        if(option == BLANK_GAMESTATE){
+            //Does nothing
+        }
+    }
+
     public GroupofDisc getAllDiscs() {
         return allDiscs;
     }
@@ -50,4 +65,45 @@ public class GameState {
         }
         return false;
     }
+
+    public GroupofDisc getDroppables() {
+        return droppables;
+    }
+
+    public void setDroppables(GroupofDisc droppables) {
+        this.droppables = droppables;
+    }
+
+    public void updateColorSets(){
+        whiteDiscs = new GroupofDisc();
+        blackDiscs = new GroupofDisc();
+        for (Disc disc: allDiscs.getList()) {
+
+            if(disc.getColor() == Color.white){
+                whiteDiscs.addDisc(disc);
+            }
+            if(disc.getColor() == Color.black){
+                blackDiscs.addDisc(disc);
+            }
+        }
+    }
+
+    public static GameState copy(GameState gameState){
+        GameState newGameState = new GameState(BLANK_GAMESTATE);
+        newGameState.droppables = GroupofDisc.copy(gameState.droppables);
+        newGameState.whiteDiscs = GroupofDisc.copy(gameState.whiteDiscs);
+        newGameState.blackDiscs = GroupofDisc.copy(gameState.blackDiscs);
+        newGameState.allDiscs = GroupofDisc.copy(gameState.allDiscs);
+        newGameState.movePlayer = gameState.movePlayer;
+        return newGameState;
+    }
+
+    public void changeInto(GameState gameState){
+        droppables = GroupofDisc.copy(gameState.droppables);
+        whiteDiscs = GroupofDisc.copy(gameState.whiteDiscs);
+        blackDiscs = GroupofDisc.copy(gameState.blackDiscs);
+        allDiscs = GroupofDisc.copy(gameState.allDiscs);
+        movePlayer = gameState.movePlayer;
+    }
+
 }
