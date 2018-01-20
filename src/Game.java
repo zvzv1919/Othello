@@ -1,5 +1,6 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 /**
  * Created by zvzv1919 on 2018/1/16.
@@ -7,18 +8,18 @@ import java.awt.event.MouseListener;
 public class Game implements Runnable {
     Board board;
     GameState mainGame;
+    ArrayList<GameState> history;
 
     public Game(Board board){
         this.board = board;
+        history = new ArrayList<>();
+
     }
     @Override
     public void run() {
-
         board.getAJudge();
         board.addMouseListener(new Drop());
-
         mainGame = board.getGameState();
-
     }
 
     class Drop implements MouseListener {
