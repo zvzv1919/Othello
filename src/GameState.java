@@ -9,7 +9,7 @@ public class GameState {
     private GroupofDisc blackDiscs;
     private GroupofDisc droppables;
     private GroupofDisc allDiscs;
-    private Color movePlayer; //the player who should take the current turn to move
+    private PlayerColor movePlayer; //the player who should take the current turn to move
 
     private static final int BLANK_GAMESTATE = 0;
 
@@ -29,9 +29,9 @@ public class GameState {
         blackDiscs = new GroupofDisc();
         blackDiscs.addDisc(allDiscs.getDisc('d',5));
         blackDiscs.addDisc(allDiscs.getDisc('e',4));
-        whiteDiscs.setColor(Color.white);
-        blackDiscs.setColor(Color.black);
-        movePlayer = Color.black;
+        whiteDiscs.setColor(PlayerColor.white);
+        blackDiscs.setColor(PlayerColor.black);
+        movePlayer = PlayerColor.black;
     }
 
     public GameState(int option){
@@ -47,11 +47,11 @@ public class GameState {
         return allDiscs;
     }
 
-    public Color getMovePlayer() {
+    public PlayerColor getMovePlayer() {
         return movePlayer;
     }
 
-    public void setMovePlayer(Color movePlayer) {
+    public void setMovePlayer(PlayerColor movePlayer) {
         this.movePlayer = movePlayer;
     }
 
@@ -79,10 +79,10 @@ public class GameState {
         blackDiscs = new GroupofDisc();
         for (Disc disc: allDiscs.getList()) {
 
-            if(disc.getColor() == Color.white){
+            if(disc.getPlayerColor() == PlayerColor.white){
                 whiteDiscs.addDisc(disc);
             }
-            if(disc.getColor() == Color.black){
+            if(disc.getPlayerColor() == PlayerColor.black){
                 blackDiscs.addDisc(disc);
             }
         }
@@ -106,4 +106,11 @@ public class GameState {
         movePlayer = gameState.movePlayer;
     }
 
+    public GroupofDisc getBlackDiscs() {
+        return blackDiscs;
+    }
+
+    public GroupofDisc getWhiteDiscs() {
+        return whiteDiscs;
+    }
 }

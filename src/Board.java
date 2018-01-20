@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
 /**
@@ -39,24 +38,40 @@ public class Board extends JPanel{
         //Draw the discs
         for (Disc disc: gameState.getAllDiscs().getList()) {
             //assert (disc!= null);
-            switch (disc.getColor()){
-                case none:{
+            switch (disc.getPlayerColor()) {
+                case none: {
                     break;
                 }
-                case black:{
-                    g.fillOval((1 + (disc.getX() - 'a')) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
-                            (1 + (disc.getY() - 1)) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
+                case black: {
+                    g.fillOval((1 + (disc.getX() - 'a')) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE / 4,
+                            (1 + (disc.getY() - 1)) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE / 4,
                             (DEFAULT_GRID_SIZE / 2),
                             (DEFAULT_GRID_SIZE / 2));
                     break;
                 }
-                case white:{
-                    g.drawOval((1 + (disc.getX() - 'a')) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
-                            (1 + (disc.getY() - 1)) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
+                case white: {
+                    g.drawOval((1 + (disc.getX() - 'a')) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE / 4,
+                            (1 + (disc.getY() - 1)) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE / 4,
                             (DEFAULT_GRID_SIZE / 2),
                             (DEFAULT_GRID_SIZE / 2));
                     break;
                 }
+            }
+        }
+        //Draw droppables
+
+        if(gameState.getMovePlayer() == PlayerColor.black){
+            g.setColor(Color.lightGray);
+        }
+        else {
+            g.setColor(Color.WHITE);
+        }
+        for (Disc disc: gameState.getAllDiscs().getList()){
+            if(gameState.getDroppables().getList().contains(disc)){
+                g.fillOval((1 + (disc.getX() - 'a')) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
+                        (1 + (disc.getY() - 1)) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
+                        (DEFAULT_GRID_SIZE / 2),
+                        (DEFAULT_GRID_SIZE / 2));
             }
         }
 
@@ -68,7 +83,7 @@ public class Board extends JPanel{
 
         if(newX >= 'a' && newX <= 'h' && newY >= 1 && newY <= 8) {
             Disc newDisc = gameState.getAllDiscs().getDisc(newX, newY);
-            //newDisc.setColor(gameState.getMovePlayer());
+            //newDisc.setPlayerColor(gameState.getMovePlayer());
             game.getJudge().processNextMove(newDisc);
         }
 

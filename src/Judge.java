@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 /**
  * Created by zx on 2018/1/15.
  * findNextPlayer: returns the next player to move, according to the standard Othello rules (SOR), returning none means gameover.
@@ -19,9 +17,9 @@ public class Judge {
         this.gameState = gameState;
     }
 
-    public Color findNextPlayer(){
-        Color currentPlayer = gameState.getMovePlayer();
-        Color newPlayer = currentPlayer == Color.white ? Color.black : Color.white;
+    public PlayerColor findNextPlayer(){
+        PlayerColor currentPlayer = gameState.getMovePlayer();
+        PlayerColor newPlayer = currentPlayer == PlayerColor.white ? PlayerColor.black : PlayerColor.white;
         GroupofDisc newDroppables;
         newDroppables = computeDroppablePoints(newPlayer);
         if(newDroppables != null){
@@ -34,19 +32,19 @@ public class Judge {
                 return newPlayer;
             }
             else {
-                return Color.none;
+                return PlayerColor.none;
             }
         }
     }
 
-    public GroupofDisc computeDroppablePoints(Color player){
+    public GroupofDisc computeDroppablePoints(PlayerColor player){
         GroupofDisc legalDrops = new GroupofDisc();
 
         //TODO:OPTIMIZE: search through unoccupied points instead of all points
         for (Disc disc: gameState.getAllDiscs().getList()) {
             Disc copy = new Disc(disc.getX(),disc.getY());
-            copy.setColor(player);
-            if(disc.getColor() == Color.none && flippedDiscs(copy)!= null){
+            copy.setPlayerColor(player);
+            if(disc.getPlayerColor() == PlayerColor.none && flippedDiscs(copy)!= null){
                 legalDrops.getList().add(disc);
             }
         }
@@ -64,14 +62,14 @@ public class Judge {
         }
 
         game.record();
-        disc.setColor(gameState.getMovePlayer());
+        disc.setPlayerColor(gameState.getMovePlayer());
         GroupofDisc flippedDiscs = flippedDiscs(disc);
         flippedDiscs.setColor(gameState.getMovePlayer());
         gameState.updateColorSets();
         board.repaint();
 
-        Color newPlayer = findNextPlayer();
-        if(newPlayer == Color.none){
+        PlayerColor newPlayer = findNextPlayer();
+        if(newPlayer == PlayerColor.none){
             endGame();
             //TODO:missing return
         }
@@ -81,7 +79,11 @@ public class Judge {
         }
     }
     public void endGame(){
-        System.out.println("Gameover");
+        int whiteDiscs = gameState.getWhiteDiscs().getList().size();
+        int blackDiscs = gameState.getBlackDiscs().getList().size();
+        System.out.println("White: " + whiteDiscs);
+        System.out.println("Black: " + blackDiscs);
+        System.out.println(whiteDiscs > blackDiscs ? "White Wins!!" : whiteDiscs == blackDiscs ? "Draw Game!" : "Black Wins!!");
     }
 
 
@@ -105,7 +107,7 @@ public class Judge {
                 for (int y = disc.getY() - 1; y <= disc.getY() + 1; y++) {
                     if(y >= 1 && y <= 8){ //the disc here is on the board
                         Disc intact = gameState.getAllDiscs().getDisc(x,y);
-                        if(intact.getColor() == Color.none || intact.getColor() == disc.getColor()){
+                        if(intact.getPlayerColor() == PlayerColor.none || intact.getPlayerColor() == disc.getPlayerColor()){
                             continue;
                         }
                         else {
@@ -135,14 +137,14 @@ public class Judge {
         GroupofDisc groupofDisc = new GroupofDisc();
         while(gameState.getAllDiscs().getDisc(x,y) != null){//check if the checkee is still on the board
             Disc checkee = gameState.getAllDiscs().getDisc(x,y);
-            if(checkee.getColor() == intact.getColor()){
+            if(checkee.getPlayerColor() == intact.getPlayerColor()){
                 x+= directionX;
                 y+= directionY;
             }
-            else if(checkee.getColor() == Color.none){
+            else if(checkee.getPlayerColor() == PlayerColor.none){
                 break;
             }
-            else{//that is to say, checkee.getColor == central.getColor, the successful case
+            else{//that is to say, checkee.getPlayerColor == central.getPlayerColor, the successful case
                 endX = (char)(x - directionX);
                 endY = y - directionY;
                 break;

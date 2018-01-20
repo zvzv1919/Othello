@@ -1,23 +1,18 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by zvzv1919 on 2018/1/10.
  * a set of disc that can be flipped together, for convenient purpose;
  * can also be searched.
- * setColor: set the color of the whole group of discs to what is passed in(calls 'disc.setColor(color)'.
+ * setPlayerColor: set the color of the whole group of discs to what is passed in(calls 'disc.setPlayerColor(color)'.
  * getDisc: returns the disc of the specified coordinates, null if there !exists such a disc in the groupofDisc
  * equals: returns true only if the size of groups are the same, and discs of the same position from two groups have
  *      the same color. Attention: works properlly only when all discs have different positions
  * copy: copies the list and create a new GroupofDisc according to the list.
+ * absorb: absorbs the passed-in group.
  * TODO:Sort and optimize equals.
  */
 
-
-//
-//
-//
-//
 
 public class GroupofDisc {
     private ArrayList<Disc> list;
@@ -32,14 +27,14 @@ public class GroupofDisc {
 
     //free memory
 
-    public void setColor(Color color){
+    public void setColor(PlayerColor playerColor){
         /*
         Iterator<Disc> e = list.iterator();
         while(e.hasNext()) {
-            e.next().setColor(color);
+            e.next().setPlayerColor(playerColor);
         }*/
         for (Disc d: list) {
-            d.setColor(color);
+            d.setPlayerColor(playerColor);
         }
     }
 
@@ -66,7 +61,7 @@ public class GroupofDisc {
         }
         for (Disc d: list) {
             e = operand.getDisc(d.getX(),d.getY());
-            if(e == null || e.getColor() != d.getColor()){
+            if(e == null || e.getPlayerColor() != d.getPlayerColor()){
                 return false;
             }
         }
@@ -84,7 +79,7 @@ public class GroupofDisc {
         GroupofDisc newGroup = new GroupofDisc();
         for (Disc disc: groupofDisc.list) {
             Disc newDisc = new Disc(disc.getX(), disc.getY());
-            newDisc.setColor(disc.getColor());
+            newDisc.setPlayerColor(disc.getPlayerColor());
             newGroup.list.add(newDisc);
         }
         return newGroup;

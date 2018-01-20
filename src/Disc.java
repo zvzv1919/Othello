@@ -3,7 +3,7 @@
  *
  */
 public class Disc {
-    private Color color;
+    private PlayerColor playerColor;
 
     //the disc's position, from a1 to h8
     private char x; //ranges from a to h
@@ -12,13 +12,13 @@ public class Disc {
     public Disc(char x, int y) {
         this.x = x;
         this.y = y;
-        color = Color.none;
+        playerColor = PlayerColor.none;
     }
-    public Color getColor() {
-        return color;
+    public PlayerColor getPlayerColor() {
+        return playerColor;
     }
-    public void setColor(Color color) {
-        this.color = color;
+    public void setPlayerColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
     }
     public char getX() {
         return x;

@@ -1,6 +1,5 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -41,7 +40,7 @@ public class Game implements Runnable {
     public void getAJudge(){
         judge = new Judge(mainGame);
         judge.setBoard(board);
-        mainGame.setDroppables(judge.computeDroppablePoints(Color.black));
+        mainGame.setDroppables(judge.computeDroppablePoints(PlayerColor.black));
         judge.setGame(this);
     }
 
