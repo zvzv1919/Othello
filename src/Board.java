@@ -26,7 +26,7 @@ public class Board extends JPanel{
         return new Dimension(x,y);
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         //Draw the game board
@@ -84,4 +84,5 @@ public class Board extends JPanel{
         judge.setBoard(this);
         judge.setDroppables(judge.computeDroppablePoints(Color.black));
     }
+
 }
