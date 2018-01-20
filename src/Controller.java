@@ -14,7 +14,9 @@ public class Controller implements Runnable{
     JPanel buttonPane;
     JPanel whole;
     Game game;
-    JButton whiteButton;
+
+    JButton restartButton;
+    JButton undoButton;
 
     public Controller(){
         frame = new JFrame();
@@ -22,21 +24,15 @@ public class Controller implements Runnable{
         buttonPane = new JPanel();
     }
     public void run(){
-        JButton blackButton = new JButton("black");
-        whiteButton = new JButton("white");
-        JButton restartButton = new JButton("restart");
-        blackButton.addActionListener(new ColorChanger(Color.black, this));
-        //whiteButton.addActionListener(new ColorChanger(Color.white));
-        restartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        restartButton = new JButton("新游戏");
+        undoButton = new JButton("悔棋");
+        restartButton.addActionListener(e ->  {
                 startNewGame();
-            }
         });
+        undoButton.addActionListener(e -> {game.undo();});
 
-        buttonPane.add(blackButton);
-        buttonPane.add(whiteButton);
         buttonPane.add(restartButton);
+        buttonPane.add(undoButton);
         whole.add(buttonPane);
 
         board = new Board();
@@ -52,39 +48,6 @@ public class Controller implements Runnable{
         startNewGame();
 
         frame.setVisible(true);
-    }
-
-    private class ColorChanger implements ActionListener{
-        Controller controller;
-        Color color;
-        int x = 0;
-
-        ColorChanger(Color color, Controller controller){
-            this.color = color;
-            this.controller = controller;
-        }
-        ColorChanger(Color color){
-            this.color = color;
-        }
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(color == Color.white) {
-                System.out.println("haha");
-            }
-            if(color == Color.black){
-                if(x++ % 2 == 0) {
-                    //controller.whiteButton.addActionListener(new ColorChanger(Color.white));
-                    /*controller.buttonPane.remove(whiteButton);
-                    buttonPane.repaint();
-                    buttonPane.updateUI();*/
-                }
-                else{
-                    /*controller.buttonPane.add(whiteButton);
-                    buttonPane.repaint();
-                    buttonPane.updateUI();*/
-                }
-            }
-        }
     }
 
     public void startNewGame(){

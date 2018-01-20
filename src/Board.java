@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class Board extends JPanel{
     private GameState gameState;
-    private Judge judge;
+    private Game game;
 
     private final int DEFAULT_GRID_SIZE = 50;
 
@@ -69,7 +69,7 @@ public class Board extends JPanel{
         if(newX >= 'a' && newX <= 'h' && newY >= 1 && newY <= 8) {
             Disc newDisc = gameState.getAllDiscs().getDisc(newX, newY);
             //newDisc.setColor(gameState.getMovePlayer());
-            judge.processNextMove(newDisc);
+            game.getJudge().processNextMove(newDisc);
         }
 
     }
@@ -77,13 +77,13 @@ public class Board extends JPanel{
     public GameState getGameState() {
         return gameState;
     }
-    public void getAJudge(){
-        judge = new Judge(gameState);
-        judge.setBoard(this);
-        judge.setDroppables(judge.computeDroppablePoints(Color.black));
-    }
+
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

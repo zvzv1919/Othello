@@ -1,6 +1,7 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by zvzv1919 on 2018/1/16.
@@ -8,20 +9,38 @@ import java.util.ArrayList;
 public class Game implements Runnable {
     private Board board;
     private GameState mainGame;
-    private ArrayList<GameState> history;
+    private Stack<GameState> history;
+    private Judge judge;
 
     public Game(Board board){
         this.board = board;
-        board.setGameState(new GameState());
-        history = new ArrayList<>();
+        mainGame = new GameState();
+        board.setGameState(mainGame);
+        history = new Stack<>();
+        board.setGame(this);
     }
     @Override
     public void run() {
-        board.getAJudge();
+        getAJudge();
         board.addMouseListener(new Drop());
-        mainGame = board.getGameState();
         history.add(mainGame);
         board.repaint();
+    }
+
+    public void undo(){
+        if(!history.empty()) {
+            mainGame = history.pop();
+        }
+    }
+
+    public void record(){
+        history.push(mainGame);
+    }
+
+    public void getAJudge(){
+        judge = new Judge(mainGame);
+        judge.setBoard(board);
+        judge.setDroppables(judge.computeDroppablePoints(Color.black));
     }
 
     class Drop implements MouseListener {
@@ -57,5 +76,9 @@ public class Game implements Runnable {
         public void mouseExited(MouseEvent e) {
 
         }
+    }
+
+    public Judge getJudge() {
+        return judge;
     }
 }

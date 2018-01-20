@@ -62,6 +62,7 @@ public class Judge {
         if(droppables.getDisc(disc.getX(), disc.getY()) == null){
             return;
         }
+
         disc.setColor(gameState.getMovePlayer());
         GroupofDisc flippedDiscs = flippedDiscs(disc);
         flippedDiscs.setColor(gameState.getMovePlayer());
