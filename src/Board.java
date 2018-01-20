@@ -14,11 +14,6 @@ public class Board extends JPanel{
 
     private final int DEFAULT_GRID_SIZE = 50;
 
-
-    public Board(GameState gameState) {
-        this.gameState = gameState;
-    }
-
     //Sets the visual size of the board
     public Dimension getPreferredSize(){
         int x = 10 * DEFAULT_GRID_SIZE;
@@ -26,6 +21,9 @@ public class Board extends JPanel{
         return new Dimension(x,y);
     }
 
+    public Board(){
+        gameState = new GameState();
+    }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -85,4 +83,7 @@ public class Board extends JPanel{
         judge.setDroppables(judge.computeDroppablePoints(Color.black));
     }
 
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

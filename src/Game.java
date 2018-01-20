@@ -1,24 +1,27 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 /**
  * Created by zvzv1919 on 2018/1/16.
  */
 public class Game implements Runnable {
-    Board board;
-    GameState mainGame;
+    private Board board;
+    private GameState mainGame;
+    private ArrayList<GameState> history;
 
     public Game(Board board){
         this.board = board;
+        board.setGameState(new GameState());
+        history = new ArrayList<>();
     }
     @Override
     public void run() {
-
         board.getAJudge();
         board.addMouseListener(new Drop());
-
         mainGame = board.getGameState();
-
+        history.add(mainGame);
+        board.repaint();
     }
 
     class Drop implements MouseListener {

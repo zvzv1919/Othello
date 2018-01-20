@@ -30,13 +30,7 @@ public class Controller implements Runnable{
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                whole.remove(board);
-                board = new Board(new GameState());
-                game = new Game(board);
-                whole.add(board);
-                frame.pack();     //Fixes the issue when re-selecting the board size.
-                whole.updateUI();
-                game.run();
+                startNewGame();
             }
         });
 
@@ -45,7 +39,7 @@ public class Controller implements Runnable{
         buttonPane.add(restartButton);
         whole.add(buttonPane);
 
-        board = new Board(new GameState());
+        board = new Board();
         whole.add(board);
 
         frame.add(whole);
@@ -55,8 +49,7 @@ public class Controller implements Runnable{
 
 
         whole.updateUI();
-        game = new Game(board);
-        game.run();
+        startNewGame();
 
         frame.setVisible(true);
     }
@@ -92,5 +85,10 @@ public class Controller implements Runnable{
                 }
             }
         }
+    }
+
+    public void startNewGame(){
+        game = new Game(board);
+        game.run();
     }
 }
