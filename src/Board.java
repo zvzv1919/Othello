@@ -64,7 +64,7 @@ public class Board extends JPanel{
             g.setColor(Color.lightGray);
         }
         else {
-            g.setColor(Color.WHITE);
+            g.setColor(Color.lightGray);
         }
         for (Disc disc: gameState.getAllDiscs().getList()){
             if(gameState.getDroppables().getList().contains(disc)){
@@ -92,7 +92,6 @@ public class Board extends JPanel{
     public GameState getGameState() {
         return gameState;
     }
-
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
