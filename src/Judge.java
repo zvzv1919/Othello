@@ -76,6 +76,7 @@ public class Judge {
         else {
             gameState.setMovePlayer(newPlayer);
             gameState.setDroppables(computeDroppablePoints(newPlayer));
+
         }
     }
     public void endGame(){
