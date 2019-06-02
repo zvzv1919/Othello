@@ -29,6 +29,7 @@ public class Game implements Runnable {
     public void undo(){
         if(!history.empty()) {
             mainGame.changeInto(history.pop());
+            mainGame.setDroppables(judge.computeDroppablePoints(mainGame.getMovePlayer()));
             board.repaint();
         }
     }
@@ -45,13 +46,14 @@ public class Game implements Runnable {
     }
 
     class Drop implements MouseListener {
-        boolean isActive;
-
-        public Drop(){
-            isActive = true;
-        }
+//        boolean isActive;
+//
+//        public Drop(){
+//            isActive = true;
+//        }
         @Override
         public void mouseClicked(MouseEvent e) {
+
         }
 
         @Override
@@ -61,11 +63,12 @@ public class Game implements Runnable {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if(isActive) {
-                int x = e.getX();
-                int y = e.getY();
-                board.clicked(x, y);
-            }
+//            if(isActive) {
+//
+//            }
+            int x = e.getX();
+            int y = e.getY();
+            board.clicked(x, y);
         }
 
         @Override

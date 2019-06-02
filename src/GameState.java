@@ -1,5 +1,6 @@
 /**
- * Created by zvzv1919 on 2018/1/14.
+ * Created by zvzv1919 on 2018/1/14. Using GroupofDiscs(lists) to represent the gamestate rather than 2-d array
+ * to reduce the amount of computation when traversing chess pieces of a specific color
  * equals: True if allDiscs and movePlayer are the same.
  * copy: copies allDiscs, whiteDiscs, blackDiscs and droppables.
  * updateColorSets: update 'whiteDiscs' and 'blackDiscs'.
@@ -89,20 +90,25 @@ public class GameState {
     }
 
     public static GameState copy(GameState gameState){
+        //Doesn't compute droppables. The calling method should compute droppables manually.
         GameState newGameState = new GameState(BLANK_GAMESTATE);
-        newGameState.droppables = GroupofDisc.copy(gameState.droppables);
-        newGameState.whiteDiscs = GroupofDisc.copy(gameState.whiteDiscs);
-        newGameState.blackDiscs = GroupofDisc.copy(gameState.blackDiscs);
         newGameState.allDiscs = GroupofDisc.copy(gameState.allDiscs);
+        newGameState.updateColorSets();
+        newGameState.droppables=new GroupofDisc();
+//        newGameState.droppables = GroupofDisc.copy(gameState.droppables);
+//        newGameState.whiteDiscs = GroupofDisc.copy(gameState.whiteDiscs);
+//        newGameState.blackDiscs = GroupofDisc.copy(gameState.blackDiscs);
         newGameState.movePlayer = gameState.movePlayer;
         return newGameState;
     }
 
     public void changeInto(GameState gameState){
-        droppables = GroupofDisc.copy(gameState.droppables);
-        whiteDiscs = GroupofDisc.copy(gameState.whiteDiscs);
-        blackDiscs = GroupofDisc.copy(gameState.blackDiscs);
+        //Doesn't compute droppables. The calling method should compute droppables manually.
+//        whiteDiscs = GroupofDisc.copy(gameState.whiteDiscs);
+//        blackDiscs = GroupofDisc.copy(gameState.blackDiscs);
         allDiscs = GroupofDisc.copy(gameState.allDiscs);
+        updateColorSets();
+        droppables=new GroupofDisc();
         movePlayer = gameState.movePlayer;
     }
 

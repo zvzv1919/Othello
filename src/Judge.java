@@ -57,6 +57,9 @@ public class Judge {
     }
 
     public synchronized void processNextMove(Disc disc){//Decide what to do if a new disc 'disc' is dropped on the current gamestate
+        if(gameState.getDroppables()==null){
+            return;
+        }
         if(gameState.getDroppables().getDisc(disc.getX(), disc.getY()) == null){
             return;
         }
@@ -71,6 +74,7 @@ public class Judge {
         PlayerColor newPlayer = findNextPlayer();
         if(newPlayer == PlayerColor.none){
             endGame();
+            gameState.setDroppables(null);
             //TODO:missing return
         }
         else {

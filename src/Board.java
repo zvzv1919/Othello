@@ -66,6 +66,12 @@ public class Board extends JPanel{
         else {
             g.setColor(Color.lightGray);
         }
+        if(gameState.getDroppables()==null){
+            //game ended
+            return;
+        }
+
+        System.out.println("# of droppables: " + gameState.getDroppables().getList().size());
         for (Disc disc: gameState.getAllDiscs().getList()){
             if(gameState.getDroppables().getList().contains(disc)){
                 g.fillOval((1 + (disc.getX() - 'a')) * DEFAULT_GRID_SIZE + DEFAULT_GRID_SIZE/4,
